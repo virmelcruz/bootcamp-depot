@@ -1,0 +1,26 @@
+= form_with(model: product, local: true) do |form|
+  \#form_with() function transfer the data from view to controller, model = controller
+  - if product.errors.any?
+    \#like ng-if in angular displaying error outputs
+    #error_explanation
+      %h2
+        = pluralize(product.errors.count, "error")
+        prohibited this product from being saved:
+      \#pluralize the words
+      %ul
+        - product.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :title
+    = form.text_field :title, id: :product_title
+  .field
+    = form.label :description
+    = form.text_area :description, id: :product_description
+  .field
+    = form.label :image_url
+    = form.text_field :image_url, id: :product_image_url
+  .field
+    = form.label :price
+    = form.text_field :price, id: :product_price
+  .actions
+    = form.submit
