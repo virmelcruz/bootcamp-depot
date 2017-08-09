@@ -2,10 +2,21 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Depot
+    %title PragProg Books Online Store
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body{class: "#{controller.controller_name}"}
-    /yield = current displaying, like ng-views in angular
-    = yield
+    #banner
+      = image_tag '', alt: 'The Pragmatic Bookshelf'
+      %span.title= @page_title
+    #columns
+      #side
+        %ul
+          %li= link_to 'Home', store_index_path
+          %li= link_to 'Question', '/faq'
+          %li= link_to 'News', '/news'
+          %li= link_to 'Contact', '/contact'
+      /yield = current displaying, like ng-views in angular
+      #main
+        = yield
