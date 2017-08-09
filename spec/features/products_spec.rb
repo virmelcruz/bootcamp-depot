@@ -130,8 +130,8 @@ describe 'product page navigation', type: :feature do #we describe the test, we 
       end
 
       context 'when Title already exist' do
-        let!(:product) { FactoryGirl.create(:product, title: 'Shirt') } #variable declaration in rspec outside the it block
-
+        let!(:product) { FactoryGirl.create(:product, title: 'Shirt') } #variable declaration in rspec outside the it block add hashbang for imidieate loading of the variable
+        #create creates new object
         it 'return error for Title' do
           visit '/products'
           click_link 'New Product'
