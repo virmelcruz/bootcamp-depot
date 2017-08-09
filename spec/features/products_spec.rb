@@ -7,9 +7,9 @@ describe 'product page navigation', type: :feature do #we describe the test, we 
         visit '/products'
         click_link 'New Product'
         fill_in 'Title', with: 'Shirt' #Case senstive must be the same on the form
-        fill_in 'Description', with: 'vi pogi'
+        fill_in 'Description', with: 'good shirt'
         fill_in 'Image url', with: 'http://www.test.com/whatever.jpg'
-        fill_in 'Price', with: '1'
+        fill_in 'Price', with: '200'
         click_button 'Create Product'
       end
 
@@ -37,8 +37,8 @@ describe 'product page navigation', type: :feature do #we describe the test, we 
 
       context 'when the form is blank' do
         before do
-          fill_in 'Title', with: 'test'
-          fill_in 'Description', with: 'vi pogi'
+          fill_in 'Title', with: 'Shirt'
+          fill_in 'Description', with: 'good shirt'
           fill_in 'Image url', with: 'http://www.test.com/whatever.jpg'
           fill_in 'Price', with: '1'
         end
@@ -128,7 +128,65 @@ describe 'product page navigation', type: :feature do #we describe the test, we 
           end
         end
       end
-      
+
+      context 'when Title already exist' do
+        let!(:product) { FactoryGirl.create(:product, title: 'Shirt') } #variable declaration in rspec outside the it block
+
+        it 'return error for Title' do
+          visit '/products'
+          click_link 'New Product'
+          fill_in 'Title', with: 'Shirt'
+          fill_in 'Description', with: 'good shirt'
+          fill_in 'Image url', with: 'http://www.test.com/whatever.jpg'
+          fill_in 'Price', with: '200'
+          click_button 'Create Product'
+
+          expect(page).to have_content 'Title has already been taken'
+        end
+      end
+
+      context 'when Image URL is invalid' do
+        it 'returns an error for Image URL' do
+          visit '/products'
+          click_link 'New Product'
+          fill_in 'Title', with: 'Shirt'
+          fill_in 'Description', with: 'good shirt'
+          fill_in 'Image url', with: 'http://www.test.com/whatever.jp'
+          fill_in 'Price', with: '200'
+          click_button 'Create Product'
+
+          expect(page).to have_content 'Image url must be a URL for GIF, JPG or PNG image'
+        end
+      end
+
+      context 'when Price is invalid format' do
+        before do
+          visit '/products'
+          click_link 'New Product'
+          fill_in 'Title', with: 'Shirt'
+          fill_in 'Description', with: 'good shirt'
+          fill_in 'Image url', with: 'http://www.test.com/whatever.jp'
+        end
+        
+        context 'and it is not a number' do
+          it 'returns an error for Price' do
+            fill_in 'Price', with: 'abcde'
+            click_button 'Create Product'
+
+            expect(page).to have_content 'Price is not a number'
+          end
+        end
+
+        context 'and it lower than 0.01' do
+          it 'returns an error for Price' do
+            fill_in 'Price', with: '0'
+            click_button 'Create Product'
+            
+            expect(page).to have_content 'Price must be greater than or equal to 0.01'
+          end
+        end
+      end
+
     end
   end
 end
