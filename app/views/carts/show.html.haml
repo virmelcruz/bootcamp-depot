@@ -2,7 +2,18 @@
 
 %h2 Your Pragmatic Cart
 
-%ul
-	/uses - for loops
+%table
 	- @cart.line_items.each do |item|
-		%li= item.product.title
+		%tr
+			%td
+				= item.quantity
+				&times;
+				%td= item.product.title
+				%td.item_prace= number_to_currency(item.total_price, unit: 'P')
+
+	%tr.total_line
+		%td{colspan: 2} Total
+		%td.total_cell= number_to_currency(@cart.total_price, unit: 'P')
+		
+= button_to 'Empty cart', @cart, method: :delete,
+		data: { confirm: 'Are you sure?' }
