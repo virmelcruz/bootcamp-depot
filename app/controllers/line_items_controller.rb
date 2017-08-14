@@ -31,6 +31,7 @@ class LineItemsController < ApplicationController
     respond_to do |format| #respond to uses to support type of request
       if @line_item.save
         format.html { redirect_to store_index_url } #redirects to line_item show page passing notice data
+        format.js   { @current_item = @line_item }
         format.json { render :show, status: :created, location: @line_item } #like res.json() in node.js that passes back to the call
       else
         format.html { render :new } #redirects to render new page
