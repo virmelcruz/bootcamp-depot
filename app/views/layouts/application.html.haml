@@ -11,7 +11,7 @@
       %span.title= @page_title
     #columns
       #side
-        #cart
+        #cart{style: @cart.line_items.empty? ? 'display: none;' : ''}
           = render @cart if @cart
         %ul
           %li= link_to 'Home', store_index_path
