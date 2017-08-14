@@ -8,10 +8,11 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body{class: "#{controller.controller_name}"}
     #banner
-      = image_tag '', alt: 'The Pragmatic Bookshelf'
       %span.title= @page_title
     #columns
       #side
+        #cart
+          = render @cart if @cart
         %ul
           %li= link_to 'Home', store_index_path
           %li= link_to 'Question', '/faq'

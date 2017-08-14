@@ -30,7 +30,7 @@ class LineItemsController < ApplicationController
     @line_item = @cart.add_product(product)
     respond_to do |format| #respond to uses to support type of request
       if @line_item.save
-        format.html { redirect_to @line_item.cart } #redirects to line_item show page passing notice data
+        format.html { redirect_to store_index_url } #redirects to line_item show page passing notice data
         format.json { render :show, status: :created, location: @line_item } #like res.json() in node.js that passes back to the call
       else
         format.html { render :new } #redirects to render new page
