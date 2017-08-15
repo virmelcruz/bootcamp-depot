@@ -54,7 +54,7 @@ describe 'Checkout Process', type: :feature do
 
 	describe 'Checkout Page' do
 		let!(:product) { FactoryGirl.create(:product, title: 'Shirt') }
-		
+
 		context 'when users has no line items' do
 			before do
 				visit '/orders/new'

@@ -1,4 +1,8 @@
-%h1= class_name + "#" + @action
+%h3 Pragmatic Order shipped
+%p This is just to let you knw that we've shipped your recent order;
 
-%p
-  = @greeting + ", find me in app/views/order/shipped.html.haml"
+%table
+  %tr
+    %th{colspan: 2} Qty
+    %th Description
+  = render @order.line_items
