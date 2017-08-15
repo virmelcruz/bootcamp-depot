@@ -51,4 +51,35 @@ describe 'Checkout Process', type: :feature do
 		end
 
 	end
+
+	describe 'Checkout Page' do
+		let!(:product) { FactoryGirl.create(:product, title: 'Shirt') }
+		
+		context 'when users has no line items' do
+			before do
+				visit '/orders/new'
+			end
+
+			it 'redirects to the home page' do
+				expect(page).to have_content 'Your cart is empty'
+			end
+		end
+
+		context 'when user has line items', js: true do
+      before do
+        visit '/'
+        click_button 'Add to Cart'
+        click_button 'Checkout'
+        fill_in 'Name', with: 'Test User'
+        fill_in 'Address', with: 'Test Address'
+        fill_in 'Email', with: 'test@example.com'
+        select 'Purchase order', from: 'Pay type'
+        click_button 'Place Order'
+      end
+
+      it 'places an order' do
+        expect(page).to have_content 'Thank you for your order'
+      end
+    end
+	end
 end
