@@ -18,8 +18,5 @@
   .field
     = f.label :pay_type
     = f.select :pay_type, Order.pay_types.keys, prompt: 'Select a payment method'
-  .field
-    = f.label :integer
-    = f.text_field :integer
   .actions
     = f.submit 'Place Order'
