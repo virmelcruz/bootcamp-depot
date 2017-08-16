@@ -18,6 +18,13 @@
           %li= link_to 'Question', '/faq'
           %li= link_to 'News', '/news'
           %li= link_to 'Contact', '/contact'
+        - if session[:user_id]
+          %ul
+            %li= link_to 'Orders', orders_path
+            %li= link_to 'Products', products_path
+            %li= link_to 'Users', users_path
+
+          = button_to 'Log out', logout_path, method: :delete
       /yield = current displaying, like ng-views in angular
       #main
         = yield
