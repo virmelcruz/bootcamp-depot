@@ -14,10 +14,10 @@
         #cart{style: @cart.try(:line_items).try(:empty?) ? 'display: none;' : ''}
           = render @cart if @cart
         %ul
-          %li= link_to 'Home', store_index_path
-          %li= link_to 'Question', '/faq'
-          %li= link_to 'News', '/news'
-          %li= link_to 'Contact', '/contact'
+          %li= link_to t('.home'), store_index_path
+          %li= link_to t('.questions'), '/faq'
+          %li= link_to t('.news'), '/news'
+          %li= link_to t('.contact'), '/contact'
         - if session[:user_id]
           %ul
             %li= link_to 'Orders', orders_path
